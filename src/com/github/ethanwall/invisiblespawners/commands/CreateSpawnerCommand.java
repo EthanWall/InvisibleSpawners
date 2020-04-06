@@ -22,6 +22,7 @@ public class CreateSpawnerCommand implements CommandExecutor {
 			sender.sendMessage(Messages.NO_PERMISSION_MESSAGE);
 			return true;
 		}
+		
 		switch (args.length) {
 		case 9:
 			return execute(args[0], args[1], args[5], args[6], args[7], args[8], args[2], args[3], args[4]);

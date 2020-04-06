@@ -4,6 +4,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.ethanwall.invisiblespawners.commands.CreateSpawnerCommand;
+import com.github.ethanwall.invisiblespawners.commands.ListSpawnersCommand;
 import com.github.ethanwall.invisiblespawners.commands.RemoveSpawnerCommand;
 import com.github.ethanwall.invisiblespawners.completers.CreateSpawnerCommandTabCompleter;
 import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTabCompleter;
@@ -24,6 +25,8 @@ public class InvisibleSpawners extends JavaPlugin {
 		
 		getCommand("createspawner").setTabCompleter(new CreateSpawnerCommandTabCompleter());
 		getCommand("removespawner").setTabCompleter(new RemoveSpawnerCommandTabCompleter(manager));
+		
+		getCommand("listspawners").setExecutor(new ListSpawnersCommand(manager));
 	}
 
 	@Override

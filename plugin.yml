@@ -13,6 +13,10 @@ commands:
     description: Removes an invisible spawner.
     permission: invisiblespawners.remove
     usage: /<command> <name>
+  listspawners:
+    description: Lists all spawners.
+    permission: invisiblespawners.list
+    usage: /<command>
 permission:
   invisiblespawners.*:
     description: Gives access to all InvisibleSpawner commands.
@@ -24,4 +28,7 @@ permission:
     default: op
   invisiblespawners.remove:
     description: Allows you to remove invisbile spawners.
+    default: op
+  invisiblespawners.list:
+    description: Allows you to see a list of all spawners.
     default: op
