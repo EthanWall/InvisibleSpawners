@@ -3,3 +3,32 @@ version: 0.1
 author: Ethan Wall
 api-version: 1.15
 main: com.github.ethanwall.invisiblespawners.InvisibleSpawners
+depend: [NBTAPI]
+commands:
+  createspawner:
+    description: Create a new invisible spawner.
+    permission: invisiblespawners.create
+    usage: /<command> <name> <entity> <range> <spawns> <interval> [x] [y] [z] [world]
+  removespawner:
+    description: Removes an invisible spawner.
+    permission: invisiblespawners.remove
+    usage: /<command> <name>
+  listspawners:
+    description: Lists all spawners.
+    permission: invisiblespawners.list
+    usage: /<command>
+permission:
+  invisiblespawners.*:
+    description: Gives access to all InvisibleSpawner commands.
+    children:
+      invisiblespawners.create: true
+      invisiblespawners.remove: true
+  invisiblespawners.create:
+    description: Allows you to create invisible spawners.
+    default: op
+  invisiblespawners.remove:
+    description: Allows you to remove invisbile spawners.
+    default: op
+  invisiblespawners.list:
+    description: Allows you to see a list of all spawners.
+    default: op

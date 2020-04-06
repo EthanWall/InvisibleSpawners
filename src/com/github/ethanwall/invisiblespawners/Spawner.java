@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.tr7zw.nbtapi.NBTEntity;
 import io.netty.util.internal.ThreadLocalRandom;
 
 public class Spawner extends BukkitRunnable {
@@ -18,6 +18,16 @@ public class Spawner extends BukkitRunnable {
 	
 	@Override
 	public void run() {
+		boolean found = false;
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player.getLocation().distance(spawnerLocation) <= range) {
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			return;
+		
 		for (int i = 0; i < numberOfSpawns; i++) {
 			int x = ThreadLocalRandom.current().nextInt(-range, range + 1);
 			int z = ThreadLocalRandom.current().nextInt(-range, range + 1);
@@ -25,8 +35,7 @@ public class Spawner extends BukkitRunnable {
 			
 			Entity mob = mobLocation.getWorld().spawnEntity(mobLocation, mobType);
 			
-			NBTEntity nbtMob = new NBTEntity(mob);
-			Bukkit.getLogger().info(nbtMob.toString());
+			//NBTEntity nbtMob = new NBTEntity(mob);
 		}
 	}
 
