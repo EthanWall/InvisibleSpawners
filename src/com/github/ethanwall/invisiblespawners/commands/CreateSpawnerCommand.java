@@ -1,7 +1,6 @@
 package com.github.ethanwall.invisiblespawners.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -10,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import com.github.ethanwall.invisiblespawners.Messages;
 import com.github.ethanwall.invisiblespawners.SpawnerManager;
 
 public class CreateSpawnerCommand implements CommandExecutor {
@@ -19,7 +19,7 @@ public class CreateSpawnerCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!sender.hasPermission("invisiblespawners.remove")) {
-			sender.sendMessage(ChatColor.DARK_RED + "You do not have permission to perform this command!");
+			sender.sendMessage(Messages.NO_PERMISSION_MESSAGE);
 			return true;
 		}
 		switch (args.length) {
