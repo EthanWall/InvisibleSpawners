@@ -3,7 +3,7 @@ version: 0.1
 author: Ethan Wall
 api-version: 1.15
 main: com.github.ethanwall.invisiblespawners.InvisibleSpawners
-depend: [NBTApi]
+depend: [NBTAPI]
 commands:
   createspawner:
     description: Create a new invisible spawner.

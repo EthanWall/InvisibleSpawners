@@ -16,7 +16,7 @@ public class RemoveSpawnerCommandTabCompleter implements TabCompleter {
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		final List<String> completions = new ArrayList<>();
+		List<String> completions = new ArrayList<>();
 		
 		switch (args.length) {
 		case 1:
