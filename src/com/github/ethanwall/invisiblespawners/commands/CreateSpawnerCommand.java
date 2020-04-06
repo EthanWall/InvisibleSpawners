@@ -68,6 +68,8 @@ public class CreateSpawnerCommand implements CommandExecutor {
 	}
 	
 	private boolean execute(CommandSender sender, String name, String mobType, String x, String y, String z, String range, String numberOfSpawns, String interval) {
+		if (!(sender instanceof Player))
+			return false;
 		Player player;
 		EntityType convMobType;
 		double convX;
@@ -96,6 +98,8 @@ public class CreateSpawnerCommand implements CommandExecutor {
 	
 	
 	private boolean execute(CommandSender sender, String name, String mobType, String range, String numberOfSpawns, String interval) {
+		if (!(sender instanceof Player))
+			return false;
 		Player player;
 		EntityType convMobType;
 		int convRange;
