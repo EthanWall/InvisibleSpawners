@@ -1,5 +1,8 @@
 package com.github.ethanwall.invisiblespawners;
 
+import java.util.HashMap;
+
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,7 +15,7 @@ import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTab
 public class InvisibleSpawners extends JavaPlugin {
 
 	PluginDescriptionFile pdf;
-
+	
 	@Override
 	public void onEnable() {
 		pdf = getDescription();
@@ -20,6 +23,17 @@ public class InvisibleSpawners extends JavaPlugin {
 		
 		SpawnerManager manager = new SpawnerManager(this);
 		
+		// Load configs
+		ConfigurationLoader.loadConfigs(this);
+		HashMap<String, YamlConfiguration> configs = ConfigurationLoader.configs;
+		
+		YamlConfiguration spawnersConfig = configs.get("spawners.yml");
+		
+		// Load spawners
+		SpawnerLoader loader = new SpawnerLoader(manager, spawnersConfig);
+		loader.loadAllSpawners();
+		
+		// Register commands
 		getCommand("createspawner").setExecutor(new CreateSpawnerCommand(manager));
 		getCommand("removespawner").setExecutor(new RemoveSpawnerCommand(manager));
 		

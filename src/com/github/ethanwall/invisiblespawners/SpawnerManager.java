@@ -11,15 +11,20 @@ public class SpawnerManager {
 	
 	Plugin plugin;
 	
-	public void createSpawner(String name, EntityType mob, Location spawnerLocation, int range, int numberOfSpawns, long interval) {
+	public Spawner createSpawner(String name, EntityType mob, Location spawnerLocation, int range, int numberOfSpawns, long interval) {
 		Spawner spawner = new Spawner(mob, spawnerLocation, range, numberOfSpawns);
 		spawner.runTaskTimer(plugin, 0L, interval);
 		spawners.put(name, spawner);
+		
+		return spawner;
 	}
 	
-	public void removeSpawner(String name) {
-		spawners.get(name).cancel();
+	public Spawner removeSpawner(String name) {
+		Spawner spawner = spawners.get(name);
+		spawner.cancel();
 		spawners.remove(name);
+		
+		return spawner;
 	}
 	
 	public SpawnerManager(Plugin plugin) {
