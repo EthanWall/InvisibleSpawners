@@ -33,9 +33,8 @@ public class Spawner extends BukkitRunnable {
 			int z = ThreadLocalRandom.current().nextInt(-range, range + 1);
 			Location mobLocation = new Location(spawnerLocation.getWorld(), spawnerLocation.getX() + x, spawnerLocation.getY(), spawnerLocation.getZ() + z);
 			
+			@SuppressWarnings("unused")
 			Entity mob = mobLocation.getWorld().spawnEntity(mobLocation, mobType);
-			
-			//NBTEntity nbtMob = new NBTEntity(mob);
 		}
 	}
 

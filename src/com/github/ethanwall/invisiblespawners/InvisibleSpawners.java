@@ -1,5 +1,10 @@
 package com.github.ethanwall.invisiblespawners;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,8 +16,12 @@ import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTab
 
 public class InvisibleSpawners extends JavaPlugin {
 
+	public SpawnerLoader loader;
+	
 	PluginDescriptionFile pdf;
-
+	
+	private YamlConfiguration spawnersConfig;
+	
 	@Override
 	public void onEnable() {
 		pdf = getDescription();
@@ -20,6 +29,18 @@ public class InvisibleSpawners extends JavaPlugin {
 		
 		SpawnerManager manager = new SpawnerManager(this);
 		
+		// Load configs
+		int successfullyLoadedConfigs = ConfigurationLoader.loadConfigs(this);
+		HashMap<String, YamlConfiguration> configs = ConfigurationLoader.configs;
+		getLogger().info(String.format(Messages.CONFIGS_LOADED_MESSAGE, successfullyLoadedConfigs, configs.size()));
+		
+		spawnersConfig = configs.get("spawners.yml");
+		
+		// Load spawners
+		loader = new SpawnerLoader(manager, spawnersConfig);
+		loader.loadAllSpawners();
+		
+		// Register commands
 		getCommand("createspawner").setExecutor(new CreateSpawnerCommand(manager));
 		getCommand("removespawner").setExecutor(new RemoveSpawnerCommand(manager));
 		
@@ -31,6 +52,13 @@ public class InvisibleSpawners extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		try {
+			spawnersConfig.save(new File(getDataFolder(), "spawners.yml"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		getLogger().info(pdf.getFullName() + " has been disabled!");
 	}
 	

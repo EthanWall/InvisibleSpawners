@@ -6,6 +6,7 @@ example:
     z: 0
     world: world
   range: 5
+  interval: 1200
   spawnCount: 3
   nbt:
     

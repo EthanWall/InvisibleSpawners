@@ -6,6 +6,8 @@ public final class Messages {
 
 	public static final String NO_PERMISSION_MESSAGE = ChatColor.DARK_RED + "You do not have permission to use that command!";
 	
+	public static final String CONFIGS_LOADED_MESSAGE = ChatColor.GREEN + "%1$d" + ChatColor.RESET + " / " + ChatColor.RED + "%2$d" + ChatColor.RESET + " configs have been loaded.";
+	
 	public static final String LIST_SPAWNERS_MESSAGE = ChatColor.BLUE + "Spawners:";
 	
 }
