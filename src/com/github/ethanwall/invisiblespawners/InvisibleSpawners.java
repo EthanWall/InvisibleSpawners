@@ -14,6 +14,8 @@ import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTab
 
 public class InvisibleSpawners extends JavaPlugin {
 
+	public SpawnerLoader loader;
+	
 	PluginDescriptionFile pdf;
 	
 	@Override
@@ -24,13 +26,14 @@ public class InvisibleSpawners extends JavaPlugin {
 		SpawnerManager manager = new SpawnerManager(this);
 		
 		// Load configs
-		ConfigurationLoader.loadConfigs(this);
+		int successfullyLoadedConfigs = ConfigurationLoader.loadConfigs(this);
 		HashMap<String, YamlConfiguration> configs = ConfigurationLoader.configs;
+		getLogger().info(String.format(Messages.CONFIGS_LOADED_MESSAGE, successfullyLoadedConfigs, configs.size()));
 		
 		YamlConfiguration spawnersConfig = configs.get("spawners.yml");
 		
 		// Load spawners
-		SpawnerLoader loader = new SpawnerLoader(manager, spawnersConfig);
+		loader = new SpawnerLoader(manager, spawnersConfig);
 		loader.loadAllSpawners();
 		
 		// Register commands

@@ -15,7 +15,7 @@ public class ConfigurationLoader {
 	private static final String[] CONFIG_FILE_NAMES = {"spawners.yml"};
 	
 	public static int loadConfigs(JavaPlugin plugin) {
-		int succesfullyLoadedConfigs = 0;
+		int successfullyLoadedConfigs = 0;
 		
 		for (String name : CONFIG_FILE_NAMES) {
 			File customConfigFile = new File(plugin.getDataFolder(), name);
@@ -34,10 +34,10 @@ public class ConfigurationLoader {
 			}
 			
 			configs.put(name, customConfig);
-			succesfullyLoadedConfigs++;
+			successfullyLoadedConfigs++;
 		}
 		
-		return succesfullyLoadedConfigs;
+		return successfullyLoadedConfigs;
 	}
 	
 }
