@@ -7,7 +7,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.tr7zw.nbtapi.NBTEntity;
 import io.netty.util.internal.ThreadLocalRandom;
 
 public class Spawner extends BukkitRunnable {
@@ -34,9 +33,8 @@ public class Spawner extends BukkitRunnable {
 			int z = ThreadLocalRandom.current().nextInt(-range, range + 1);
 			Location mobLocation = new Location(spawnerLocation.getWorld(), spawnerLocation.getX() + x, spawnerLocation.getY(), spawnerLocation.getZ() + z);
 			
+			@SuppressWarnings("unused")
 			Entity mob = mobLocation.getWorld().spawnEntity(mobLocation, mobType);
-			
-			NBTEntity nbtMob = new NBTEntity(mob);
 		}
 	}
 

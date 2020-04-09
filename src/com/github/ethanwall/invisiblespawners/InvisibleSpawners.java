@@ -1,5 +1,7 @@
 package com.github.ethanwall.invisiblespawners;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +20,8 @@ public class InvisibleSpawners extends JavaPlugin {
 	
 	PluginDescriptionFile pdf;
 	
+	private YamlConfiguration spawnersConfig;
+	
 	@Override
 	public void onEnable() {
 		pdf = getDescription();
@@ -30,7 +34,7 @@ public class InvisibleSpawners extends JavaPlugin {
 		HashMap<String, YamlConfiguration> configs = ConfigurationLoader.configs;
 		getLogger().info(String.format(Messages.CONFIGS_LOADED_MESSAGE, successfullyLoadedConfigs, configs.size()));
 		
-		YamlConfiguration spawnersConfig = configs.get("spawners.yml");
+		spawnersConfig = configs.get("spawners.yml");
 		
 		// Load spawners
 		loader = new SpawnerLoader(manager, spawnersConfig);
@@ -48,6 +52,13 @@ public class InvisibleSpawners extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		try {
+			spawnersConfig.save(new File(getDataFolder(), "spawners.yml"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		getLogger().info(pdf.getFullName() + " has been disabled!");
 	}
 	
