@@ -2,6 +2,7 @@ package com.github.ethanwall.invisiblespawners;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,6 +14,8 @@ import com.github.ethanwall.invisiblespawners.commands.ListSpawnersCommand;
 import com.github.ethanwall.invisiblespawners.commands.RemoveSpawnerCommand;
 import com.github.ethanwall.invisiblespawners.completers.CreateSpawnerCommandTabCompleter;
 import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTabCompleter;
+import com.github.ethanwall.invisiblespawners.datahandlers.ConfigurationLoader;
+import com.github.ethanwall.invisiblespawners.datahandlers.SpawnerLoader;
 
 public class InvisibleSpawners extends JavaPlugin {
 
@@ -38,7 +41,8 @@ public class InvisibleSpawners extends JavaPlugin {
 		
 		// Load spawners
 		loader = new SpawnerLoader(manager, spawnersConfig);
-		loader.loadAllSpawners();
+		Collection<Spawner> loadedSpawners = loader.loadAllSpawners();
+		getLogger().info(String.format(Messages.SPAWNERS_LOADED_MESSAGE, loadedSpawners.size()));
 		
 		// Register commands
 		getCommand("createspawner").setExecutor(new CreateSpawnerCommand(manager));
@@ -48,6 +52,7 @@ public class InvisibleSpawners extends JavaPlugin {
 		getCommand("removespawner").setTabCompleter(new RemoveSpawnerCommandTabCompleter(manager));
 		
 		getCommand("listspawners").setExecutor(new ListSpawnersCommand(manager));
+		// TODO Add executers and completers for new commands
 	}
 
 	@Override

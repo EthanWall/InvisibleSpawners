@@ -8,8 +8,7 @@ example:
   range: 5
   interval: 1200
   spawnCount: 3
-  nbt:
+  effects:
     
-  attributes:
     
       

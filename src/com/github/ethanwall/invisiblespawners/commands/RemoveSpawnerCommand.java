@@ -20,15 +20,16 @@ public class RemoveSpawnerCommand implements CommandExecutor {
 		
 		switch (args.length) {
 		case 1:
-			return execute(args[0]);
+			return execute(sender, args[0]);
 		default:
 			break;
 		}
 		return false;
 	}
 
-	private boolean execute(String name) {
+	private boolean execute(CommandSender sender, String name) {
 		spawnerManager.removeSpawner(name);
+		sender.sendMessage(String.format(Messages.SPAWNER_REMOVED_MESSAGGE, name));
 		return true;
 	}
 	

@@ -1,13 +1,20 @@
-package com.github.ethanwall.invisiblespawners;
+package com.github.ethanwall.invisiblespawners.datahandlers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import com.github.ethanwall.invisiblespawners.Spawner;
+import com.github.ethanwall.invisiblespawners.SpawnerManager;
 
 public class SpawnerLoader {
 	
@@ -24,12 +31,28 @@ public class SpawnerLoader {
 		long interval = section.getLong("interval");
 		int spawnCount = section.getInt("spawnCount");
 		
-		Spawner spawner = spawnerManager.createSpawner(name, entity, location, range, spawnCount, interval);
+		ConfigurationSection potionEffectsSection = section.getConfigurationSection("effects");
+		ArrayList<PotionEffect> potionEffects = new ArrayList<PotionEffect>();
+		for (String key: potionEffectsSection.getKeys(false)) {
+			ConfigurationSection effectSection = potionEffectsSection.getConfigurationSection("key");
+			PotionEffectType effectType = PotionEffectType.getByName(key);
+			int duration = effectSection.getInt("duration");
+			int amplifier = effectSection.getInt("amplifier");
+			
+			// IF any of the variables are NULL or 0, THEN continue
+			if (Stream.of(effectType, duration, amplifier).anyMatch(Arrays.asList(null, 0)::contains))
+				continue;
+			
+			PotionEffect potionEffect = new PotionEffect(effectType, duration, amplifier);
+			potionEffects.add(potionEffect);
+		}
+		
+		Spawner spawner = spawnerManager.createSpawner(name, entity, location, range, spawnCount, interval, potionEffects);
 		return spawner;
 	}
 	
 	public Collection<Spawner> loadAllSpawners() {
-		Collection<Spawner> spawners = new ArrayList<Spawner>();
+		ArrayList<Spawner> spawners = new ArrayList<Spawner>();
 		
 		for (String key : config.getKeys(false)) {
 			spawners.add(loadSpawner(key));

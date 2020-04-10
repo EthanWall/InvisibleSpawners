@@ -1,4 +1,4 @@
-package com.github.ethanwall.invisiblespawners;
+package com.github.ethanwall.invisiblespawners.datahandlers;
 
 import java.io.File;
 import java.io.IOException;
