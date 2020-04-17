@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 public class SpawnerManager {
@@ -13,11 +14,11 @@ public class SpawnerManager {
 	
 	private InvisibleSpawners plugin;
 	
-	public Spawner createSpawner(String name, EntityType mob, Location spawnerLocation, int range, int numberOfSpawns, long interval, Collection<PotionEffect> effects) {
-		Spawner spawner = new Spawner(mob, spawnerLocation, range, numberOfSpawns, effects);
+	public Spawner createSpawner(String name, EntityType mob, Location spawnerLocation, int range, int numberOfSpawns, long interval, Collection<PotionEffect> effects, ItemStack[] armor) {
+		Spawner spawner = new Spawner(mob, spawnerLocation, range, numberOfSpawns, effects, armor);
 		spawner.runTaskTimer(plugin, 0L, interval);
 		spawners.put(name, spawner);
-		plugin.loader.saveSpawner(name, mob, spawnerLocation, range, numberOfSpawns, interval);
+		saveSpawner(name, mob, spawnerLocation, range, numberOfSpawns, interval, effects);
 		
 		return spawner;
 	}
@@ -28,6 +29,14 @@ public class SpawnerManager {
 		spawners.remove(name);
 		
 		return spawner;
+	}
+	
+	public void saveSpawner(String name, EntityType mob, Location spawnerLocation, int range, int numberOfSpawns, long interval, Collection<PotionEffect> effects) {
+		plugin.loader.saveSpawner(name, mob, spawnerLocation, range, numberOfSpawns, interval, effects);
+	}
+	
+	public void editSpawner(String name, String path, Object value) {
+		plugin.loader.editSpawner(name, path, value);
 	}
 	
 	public SpawnerManager(InvisibleSpawners plugin) {

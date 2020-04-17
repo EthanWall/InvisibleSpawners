@@ -16,12 +16,27 @@ commands:
     description: Lists all spawners.
     permission: invisiblespawners.list
     usage: /<command>
+  addspawnerpotioneffect:
+    description: Adds a potion effect to a spawner.
+    permission: invisiblespawners.potioneffects.add
+    usage: /<command> <name> <type> <duration> <amplifier>
+  removespawnerpotioneffect:
+    description: Removes a potion effect from a spawner.
+    permission: invisiblespawners.potioneffects.remove
+    usage: /<command> <name> <type>
 permission:
   invisiblespawners.*:
     description: Gives access to all InvisibleSpawner commands.
     children:
       invisiblespawners.create: true
       invisiblespawners.remove: true
+      invisiblespawners.list: true
+      invisiblespawners.potioneffects.*: true
+  invisiblespawners.potioneffects.*:
+    description: Gives access to all potion effect related InvisibleSpawner commands.
+    children:
+      invisiblespawners.potioneffects.add: true
+      invisiblespawners.potioneffects.remove: true
   invisiblespawners.create:
     description: Allows you to create invisible spawners.
     default: op
@@ -30,4 +45,10 @@ permission:
     default: op
   invisiblespawners.list:
     description: Allows you to see a list of all spawners.
+    default: op
+  invisiblespawners.potioneffects.add:
+    description: Allows you to add a potion effect to a spawner.
+    default: op
+  invisiblespawners.potioneffects.remove:
+    description: Allows you to remove a potion effect from a spawner.
     default: op

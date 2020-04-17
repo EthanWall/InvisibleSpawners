@@ -35,7 +35,8 @@ public class RemovePotionEffectCommandTabCompleter implements TabCompleter {
 			}
 			else {
 				effects = spawnerManager.spawners.get(args[0]).effects.stream()
-						.map(e -> e.getName())
+						.map(e -> e.getType())
+						.map(t -> t.getName())
 						.collect(Collectors.toCollection(ArrayList::new));
 			}
 			StringUtil.copyPartialMatches(args[1], effects, completions);

@@ -9,10 +9,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.ethanwall.invisiblespawners.commands.AddPotionEffectCommand;
 import com.github.ethanwall.invisiblespawners.commands.CreateSpawnerCommand;
 import com.github.ethanwall.invisiblespawners.commands.ListSpawnersCommand;
+import com.github.ethanwall.invisiblespawners.commands.RemovePotionEffectCommand;
 import com.github.ethanwall.invisiblespawners.commands.RemoveSpawnerCommand;
+import com.github.ethanwall.invisiblespawners.completers.AddPotionEffectCommandTabCompleter;
 import com.github.ethanwall.invisiblespawners.completers.CreateSpawnerCommandTabCompleter;
+import com.github.ethanwall.invisiblespawners.completers.RemovePotionEffectCommandTabCompleter;
 import com.github.ethanwall.invisiblespawners.completers.RemoveSpawnerCommandTabCompleter;
 import com.github.ethanwall.invisiblespawners.datahandlers.ConfigurationLoader;
 import com.github.ethanwall.invisiblespawners.datahandlers.SpawnerLoader;
@@ -52,7 +56,12 @@ public class InvisibleSpawners extends JavaPlugin {
 		getCommand("removespawner").setTabCompleter(new RemoveSpawnerCommandTabCompleter(manager));
 		
 		getCommand("listspawners").setExecutor(new ListSpawnersCommand(manager));
-		// TODO Add executers and completers for new commands
+		
+		getCommand("addspawnerpotioneffect").setExecutor(new AddPotionEffectCommand(manager));
+		getCommand("addspawnerpotioneffect").setTabCompleter(new AddPotionEffectCommandTabCompleter(manager));
+		
+		getCommand("removespawnerpotioneffect").setExecutor(new RemovePotionEffectCommand(manager));
+		getCommand("removespawnerpotioneffect").setTabCompleter(new RemovePotionEffectCommandTabCompleter(manager));
 	}
 
 	@Override

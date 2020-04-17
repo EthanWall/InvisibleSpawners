@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.github.ethanwall.invisiblespawners.Messages;
 import com.github.ethanwall.invisiblespawners.SpawnerManager;
@@ -20,7 +21,7 @@ public class CreateSpawnerCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!sender.hasPermission("invisiblespawners.remove")) {
+		if (!sender.hasPermission("invisiblespawners.create")) {
 			sender.sendMessage(Messages.NO_PERMISSION_MESSAGE);
 			return true;
 		}
@@ -39,7 +40,7 @@ public class CreateSpawnerCommand implements CommandExecutor {
 	}
 
 	private boolean execute(CommandSender sender, String name, EntityType mobType, Location spawnerLocation, int range, int numberOfSpawns, long interval) {
-		spawnerManager.createSpawner(name, mobType, spawnerLocation, range, numberOfSpawns, interval, Collections.emptyList());
+		spawnerManager.createSpawner(name, mobType, spawnerLocation, range, numberOfSpawns, interval, Collections.emptyList(), new ItemStack[]{});
 		sender.sendMessage(String.format(Messages.SPAWNER_CREATED_MESSAGGE, name));
 		return true;
 	}

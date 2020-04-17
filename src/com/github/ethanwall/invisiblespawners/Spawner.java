@@ -1,13 +1,14 @@
 package com.github.ethanwall.invisiblespawners;
 
 import java.util.Collection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -20,6 +21,7 @@ public class Spawner extends BukkitRunnable {
 	public int range;
 	public int numberOfSpawns;
 	public Collection<PotionEffect> effects;
+	public ItemStack[] armor;
 	
 	@Override
 	public void run() {
@@ -45,14 +47,18 @@ public class Spawner extends BukkitRunnable {
 			LivingEntity livingMob = (LivingEntity) mob;
 			
 			livingMob.addPotionEffects(effects);
+			
+			EntityEquipment equipment = livingMob.getEquipment();
+			equipment.setArmorContents(armor);
 		}
 	}
 
-	public Spawner(EntityType mobType, Location spawnerLocation, int range, int numberOfSpawns, Collection<PotionEffect> effects) {
+	public Spawner(EntityType mobType, Location spawnerLocation, int range, int numberOfSpawns, Collection<PotionEffect> effects, ItemStack[] armor) {
 		this.mobType = mobType;
 		this.spawnerLocation = spawnerLocation;
 		this.range = range;
 		this.numberOfSpawns = numberOfSpawns;
 		this.effects = effects;
+		this.armor = armor;
 	}
 }

@@ -38,6 +38,8 @@ public class AddPotionEffectCommand implements CommandExecutor {
 		
 		PotionEffect effect = new PotionEffect(type, duration, amplifier);
 		spawner.effects.add(effect);
+		spawnerManager.editSpawner(name, "effects." + type.getName() + ".duration", duration);
+		spawnerManager.editSpawner(name, "effects." + type.getName() + ".amplifier", amplifier);
 		
 		return true;
 	}

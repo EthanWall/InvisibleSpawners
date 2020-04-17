@@ -19,7 +19,7 @@ public class RemovePotionEffectCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!sender.hasPermission("invisiblespawners.potioneffects.add")) {
+		if (!sender.hasPermission("invisiblespawners.potioneffects.remove")) {
 			sender.sendMessage(Messages.NO_PERMISSION_MESSAGE);
 			return true;
 		}
@@ -45,6 +45,7 @@ public class RemovePotionEffectCommand implements CommandExecutor {
 				.collect(Collectors.toCollection(ArrayList::new));
 		if (newEffects.size() != spawner.effects.size()) {
 			spawner.effects = newEffects;
+			spawnerManager.editSpawner(name, "effects." + type.getName(), null);
 			sender.sendMessage(String.format(Messages.EFFECT_REMOVED_MESSAGE, type.toString()));
 		}
 		else {
